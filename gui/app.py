@@ -15,8 +15,11 @@ from matplotlib.figure import Figure
 from plotypus import (
     EpsMOEA, EpsNSGAII, GDE3, IBEA, MOEAD, NSGAII, NSGAIII, OMOPSO, SMPSO, SPEA2,
     DTLZ1, DTLZ2, DTLZ3, DTLZ4, DTLZ7,
-    ZDT1, ZDT2, ZDT3, ZDT4, ZDT6,
+    ZDT1, ZDT2, ZDT3, ZDT4, ZDT5, ZDT6,
     WFG1, WFG2, WFG3, WFG4, WFG5, WFG6, WFG7, WFG8, WFG9,
+    UF1, UF2, UF3, UF4, UF5, UF6, UF7, UF8, UF9, UF10, UF11, UF12, UF13,
+    CF1, CF2, CF3, CF4, CF5, CF6, CF7, CF8, CF9, CF10,
+    Schaffer, Belegundu,
 )
 
 # ── Registries ────────────────────────────────────────────────────────────────
@@ -32,6 +35,7 @@ PROBLEMS = {
     "ZDT2":  (ZDT2,  False),
     "ZDT3":  (ZDT3,  False),
     "ZDT4":  (ZDT4,  False),
+    "ZDT5":  (ZDT5,  False),
     "ZDT6":  (ZDT6,  False),
     "WFG1":  (WFG1,  True),
     "WFG2":  (WFG2,  True),
@@ -42,6 +46,31 @@ PROBLEMS = {
     "WFG7":  (WFG7,  True),
     "WFG8":  (WFG8,  True),
     "WFG9":  (WFG9,  True),
+    "UF1":   (UF1,   False),
+    "UF2":   (UF2,   False),
+    "UF3":   (UF3,   False),
+    "UF4":   (UF4,   False),
+    "UF5":   (UF5,   False),
+    "UF6":   (UF6,   False),
+    "UF7":   (UF7,   False),
+    "UF8":   (UF8,   False),
+    "UF9":   (UF9,   False),
+    "UF10":  (UF10,  False),
+    "UF11":  (UF11,  False),
+    "UF12":  (UF12,  False),
+    "UF13":  (UF13,  False),
+    "CF1":   (CF1,   False),
+    "CF2":   (CF2,   False),
+    "CF3":   (CF3,   False),
+    "CF4":   (CF4,   False),
+    "CF5":   (CF5,   False),
+    "CF6":   (CF6,   False),
+    "CF7":   (CF7,   False),
+    "CF8":   (CF8,   False),
+    "CF9":   (CF9,   False),
+    "CF10":  (CF10,  False),
+    "Schaffer":   (Schaffer,   False),
+    "Belegundu":  (Belegundu,  False),
 }
 
 # display name -> key used in make_algorithm()
