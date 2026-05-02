@@ -2,7 +2,7 @@
 Command Line Tools
 ==================
 
-Starting wth version 1.4.0, Platypus offers several command-line tools.  To
+Starting with version 0.1.1, Platypus offers several command-line tools.  To
 see all available options, run:
 
 .. code:: bash

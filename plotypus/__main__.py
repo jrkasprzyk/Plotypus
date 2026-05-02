@@ -96,11 +96,11 @@ def main(input=None):
     hypervolume_parser.add_argument("--maximum", help="maximum bounds, optional", type=split_list(float))
     hypervolume_parser.add_argument("filename", help="input filename", nargs="?")
 
-    gd_parser = subparsers.add_parser("gd", help="compute generaional distance")
+    gd_parser = subparsers.add_parser("gd", help="compute generational distance")
     gd_parser.add_argument("-r", "--reference_set", help="reference set", required=True)
     gd_parser.add_argument("filename", help="input filename", nargs="?")
 
-    igd_parser = subparsers.add_parser("igd", help="compute inverted generaional distance")
+    igd_parser = subparsers.add_parser("igd", help="compute inverted generational distance")
     igd_parser.add_argument("-r", "--reference_set", help="reference set", required=True)
     igd_parser.add_argument("filename", help="input filename", nargs="?")
 

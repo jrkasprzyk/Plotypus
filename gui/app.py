@@ -5,6 +5,7 @@ import math
 import queue
 import threading
 import tkinter as tk
+import webbrowser
 from tkinter import ttk, messagebox
 
 import matplotlib
@@ -21,6 +22,34 @@ from plotypus import (
     CF1, CF2, CF3, CF4, CF5, CF6, CF7, CF8, CF9, CF10,
     Schaffer, Belegundu,
 )
+
+# ── Tooltip helper ────────────────────────────────────────────────────────────
+
+class Tooltip:
+    """Lightweight hover tooltip for any tkinter widget."""
+
+    def __init__(self, widget, text):
+        self._widget = widget
+        self._text = text
+        self._tip = None
+        widget.bind("<Enter>", self._show)
+        widget.bind("<Leave>", self._hide)
+
+    def _show(self, _event=None):
+        x = self._widget.winfo_rootx() + self._widget.winfo_width() + 4
+        y = self._widget.winfo_rooty()
+        self._tip = tw = tk.Toplevel(self._widget)
+        tw.wm_overrideredirect(True)
+        tw.wm_geometry(f"+{x}+{y}")
+        tk.Label(tw, text=self._text, justify="left", background="#ffffe0",
+                 relief="solid", borderwidth=1, font=("Segoe UI", 8),
+                 wraplength=220).pack()
+
+    def _hide(self, _event=None):
+        if self._tip:
+            self._tip.destroy()
+            self._tip = None
+
 
 # ── Registries ────────────────────────────────────────────────────────────────
 
@@ -185,9 +214,32 @@ class App(tk.Tk):
         self._current_nobjs = 2
 
         self._build_ui()
+        self._build_menu()
         self.protocol("WM_DELETE_WINDOW", self._on_close)
 
     # ── UI construction ───────────────────────────────────────────────────────
+
+    def _build_menu(self):
+        menubar = tk.Menu(self)
+        help_menu = tk.Menu(menubar, tearoff=0)
+        help_menu.add_command(label="Documentation",
+                              command=lambda: webbrowser.open(
+                                  "https://platypus.readthedocs.io"))
+        help_menu.add_separator()
+        help_menu.add_command(label="About", command=self._show_about)
+        menubar.add_cascade(label="Help", menu=help_menu)
+        self.config(menu=menubar)
+
+    def _show_about(self):
+        import plotypus
+        messagebox.showinfo(
+            "About Plotypus Explorer",
+            f"Plotypus Explorer\n"
+            f"Version {plotypus.__version__}\n\n"
+            f"A GUI for multiobjective optimization\n"
+            f"using the Platypus framework.\n\n"
+            f"https://platypus.readthedocs.io"
+        )
 
     def _build_ui(self):
         self.columnconfigure(1, weight=1)
@@ -214,12 +266,14 @@ class App(tk.Tk):
                                values=list(PROBLEMS), state="readonly", width=10)
         prob_cb.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
         prob_cb.bind("<<ComboboxSelected>>", self._on_problem_change)
+        Tooltip(prob_cb, "Benchmark problem to optimize. DTLZ/WFG support variable objective counts; ZDT/UF/CF are fixed at 2.")
 
         ttk.Label(side, text="Objectives").grid(row=r, column=0, sticky="w")
         self._nobjs_var = tk.IntVar(value=2)
         self._nobjs_spin = ttk.Spinbox(side, from_=2, to=8,
                                        textvariable=self._nobjs_var, width=5)
         self._nobjs_spin.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        Tooltip(self._nobjs_spin, "Number of objectives for the selected problem (disabled for problems with a fixed objective count).")
 
         ttk.Separator(side, orient="horizontal").grid(
             row=r, column=0, columnspan=2, sticky="ew", pady=8); r += 1
@@ -230,26 +284,30 @@ class App(tk.Tk):
 
         ttk.Label(side, text="Algorithm").grid(row=r, column=0, sticky="w")
         self._algo_var = tk.StringVar(value="NSGA-II")
-        ttk.Combobox(side, textvariable=self._algo_var,
-                     values=list(ALGORITHMS), state="readonly", width=10).grid(
-            row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        algo_cb = ttk.Combobox(side, textvariable=self._algo_var,
+                               values=list(ALGORITHMS), state="readonly", width=10)
+        algo_cb.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        Tooltip(algo_cb, "Multiobjective evolutionary algorithm to run.")
 
         ttk.Label(side, text="Pop size").grid(row=r, column=0, sticky="w")
         self._pop_var = tk.IntVar(value=100)
-        ttk.Spinbox(side, from_=10, to=2000, increment=10,
-                    textvariable=self._pop_var, width=7).grid(
-            row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        pop_spin = ttk.Spinbox(side, from_=10, to=2000, increment=10,
+                               textvariable=self._pop_var, width=7)
+        pop_spin.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        Tooltip(pop_spin, "Number of candidate solutions maintained each generation. Larger values improve coverage but increase runtime.")
 
         ttk.Label(side, text="Max NFE").grid(row=r, column=0, sticky="w")
         self._nfe_var = tk.IntVar(value=10000)
-        ttk.Entry(side, textvariable=self._nfe_var, width=8).grid(
-            row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        nfe_entry = ttk.Entry(side, textvariable=self._nfe_var, width=8)
+        nfe_entry.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        Tooltip(nfe_entry, "Maximum number of function evaluations (NFE). The algorithm stops after this many calls to the problem's objective functions.")
 
         ttk.Label(side, text="Update every").grid(row=r, column=0, sticky="w")
         self._freq_var = tk.IntVar(value=500)
-        ttk.Spinbox(side, from_=50, to=5000, increment=50,
-                    textvariable=self._freq_var, width=7).grid(
-            row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        freq_spin = ttk.Spinbox(side, from_=50, to=5000, increment=50,
+                                textvariable=self._freq_var, width=7)
+        freq_spin.grid(row=r, column=1, pady=2, padx=(6, 0), sticky="e"); r += 1
+        Tooltip(freq_spin, "Refresh the plot every N function evaluations. Lower values give smoother live updates; higher values are faster.")
 
         ttk.Separator(side, orient="horizontal").grid(
             row=r, column=0, columnspan=2, sticky="ew", pady=8); r += 1

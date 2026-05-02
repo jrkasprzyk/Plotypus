@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:pypi.org)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(Get-ChildItem -Path C:\\\\Github\\\\Plotypus -Recurse -File -Name)",
+      "Bash(Select-Object -First 50)"
     ]
   }
 }
