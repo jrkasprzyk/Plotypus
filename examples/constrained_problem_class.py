@@ -1,4 +1,4 @@
-from platypus import NSGAII, Problem, Real
+﻿from plotypus import NSGAII, Problem, Real
 
 
 class Belegundu(Problem):

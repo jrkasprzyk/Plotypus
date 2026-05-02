@@ -1,6 +1,6 @@
-import math
+﻿import math
 
-from platypus import (Direction, GeneticAlgorithm, Permutation, Problem,
+from plotypus import (Direction, GeneticAlgorithm, Permutation, Problem,
                       nondominated, unique)
 
 # The (x, y) coordinates of cities in the PR76 instance.  This instance has

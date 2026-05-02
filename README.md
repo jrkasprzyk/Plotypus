@@ -1,29 +1,27 @@
-# Platypus
+# Plotypus
 
-[![Test and Publish](https://github.com/Project-Platypus/Platypus/actions/workflows/test-and-publish.yml/badge.svg)](https://github.com/Project-Platypus/Platypus/actions/workflows/test-and-publish.yml)
-[![Documentation Status](https://readthedocs.org/projects/platypus/badge/?version=latest)](http://platypus.readthedocs.org/en/latest/?badge=latest)
-[![PyPI Latest Release](https://img.shields.io/pypi/v/Platypus-Opt.svg)](https://pypi.org/project/Platypus-Opt/)
+[![PyPI Latest Release](https://img.shields.io/pypi/v/Plotypus.svg)](https://pypi.org/project/Plotypus/)
 
+Fork of [Platypus](https://github.com/Project-Platypus/Platypus) with visualization focus.
 
-### What is Platypus?
+### What is Plotypus?
 
-Platypus is a framework for evolutionary computing in Python with a focus on
+Plotypus is a framework for evolutionary computing in Python with a focus on
 multiobjective evolutionary algorithms (MOEAs).  It differs from existing
 optimization libraries, including PyGMO, Inspyred, DEAP, and Scipy, by providing
 optimization algorithms and analysis tools for multiobjective optimization.
 It currently supports NSGA-II, NSGA-III, MOEA/D, IBEA, Epsilon-MOEA, SPEA2, GDE3,
-OMOPSO, SMPSO, and Epsilon-NSGA-II.  For more information, see our
-[examples](examples/)
-and [online documentation](http://platypus.readthedocs.org/en/latest/index.html).
+OMOPSO, SMPSO, and Epsilon-NSGA-II.  For more information, see the
+[examples](examples/).
 
 ### Example
 
 For example, optimizing a simple biobjective problem with a single real-valued
-decision variables is accomplished in Platypus with:
+decision variable is accomplished in Plotypus with:
 
 ```python
 
-    from platypus import NSGAII, Problem, Real
+    from plotypus import NSGAII, Problem, Real
 
     def schaffer(x):
         return [x[0]**2, (x[0]-2)**2]
@@ -38,29 +36,25 @@ decision variables is accomplished in Platypus with:
 
 ### Installation
 
-To install the latest Platypus release, run the following command:
+To install the latest Plotypus release, run the following command:
 
 ```
-    pip install platypus-opt
+    pip install plotypus
 ```
 
-To install the latest development version of Platypus, run the following commands:
+To install the latest development version of Plotypus, first install
+[Poetry](https://python-poetry.org/docs/#installation) if not already installed:
 
 ```
-    pip install -U build setuptools
-    git clone https://github.com/Project-Platypus/Platypus.git
-    cd Platypus
-    python -m build
-    python -m pip install --editable .
+    curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-#### Anaconda
-
-Platypus is also available via conda-forge.
+Then clone and install Plotypus:
 
 ```
-    conda config --add channels conda-forge
-    conda install platypus-opt
+    git clone https://github.com/jkasprzyk/Plotypus.git
+    cd Plotypus
+    poetry install
 ```
 
 For more information, see the [feedstock](https://github.com/conda-forge/platypus-opt-feedstock).

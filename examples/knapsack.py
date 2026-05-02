@@ -1,4 +1,4 @@
-from platypus import (Binary, Constraint, Direction, GeneticAlgorithm, Problem,
+﻿from plotypus import (Binary, Constraint, Direction, GeneticAlgorithm, Problem,
                       nondominated, unique)
 
 # This simple example has an optimal value of 15 when picking items 1 and 4.
