@@ -24,8 +24,8 @@ import random
 from abc import ABCMeta
 
 from ._math import EPSILON
-from .core import Problem, Solution
-from .types import Binary, Real
+from .core import Constraint, Direction, Problem, Solution
+from .types import Binary, Permutation, Real
 
 ################################################################################
 # DTLZ Problems
@@ -1534,3 +1534,95 @@ class ZDT6(ZDT):
         g = 1.0 + 9.0*math.pow(sum(x[1:]) / (self.nvars-1.0), 0.25)
         h = 1.0 - math.pow(f / g, 2.0)
         solution.objectives[:] = [f, g*h]
+
+################################################################################
+# Simple Test Problems
+################################################################################
+
+class Schaffer(Problem):
+
+    def __init__(self):
+        super().__init__(1, 2)
+        self.types[:] = Real(-10, 10)
+
+    def evaluate(self, solution):
+        x = solution.variables[0]
+        solution.objectives[:] = [x**2, (x - 2)**2]
+
+
+class Belegundu(Problem):
+
+    def __init__(self):
+        super().__init__(2, 2, 2)
+        self.types[:] = [Real(0, 5), Real(0, 3)]
+        self.constraints[:] = "<=0"
+
+    def evaluate(self, solution):
+        x = solution.variables[0]
+        y = solution.variables[1]
+        solution.objectives[:] = [-2*x + y, 2*x + y]
+        solution.constraints[:] = [-x + y - 1, x + y - 7]
+
+################################################################################
+# Combinatorial Problems
+################################################################################
+
+class Knapsack(Problem):
+
+    def __init__(self, weights, profits, capacity):
+        super().__init__(1, 1, 1)
+        self.types[0] = Binary(len(weights))
+        self.directions[0] = Direction.MAXIMIZE
+        self.constraints[0] = Constraint("<=", capacity)
+        self.weights = weights
+        self.profits = profits
+
+    def evaluate(self, solution):
+        selection = solution.variables[0]
+        n = len(self.weights)
+        solution.objectives[0] = sum(self.profits[i] for i in range(n) if selection[i])
+        solution.constraints[0] = sum(self.weights[i] for i in range(n) if selection[i])
+
+
+class TSP(Problem):
+
+    def __init__(self, cities):
+        super().__init__(1, 1)
+        self.types[0] = Permutation(range(len(cities)))
+        self.directions[0] = Direction.MINIMIZE
+        self.cities = cities
+
+    def evaluate(self, solution):
+        tour = solution.variables[0]
+        n = len(self.cities)
+        solution.objectives[0] = sum(
+            self._dist(self.cities[tour[i]], self.cities[tour[(i + 1) % n]])
+            for i in range(n)
+        )
+
+    @staticmethod
+    def _dist(a, b):
+        return round(math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2))
+
+
+class PortfolioOptimization(Problem):
+    """Minimize portfolio variance and concentration; maximize expected return."""
+
+    def __init__(self, assets, returns, vols, corr):
+        n = len(assets)
+        super().__init__(n, 3)
+        self.types[:] = Real(0, 1)
+        self.directions[1] = Direction.MAXIMIZE
+        self.assets = assets
+        self.returns = returns
+        self.cov = [[corr[i][j] * vols[i] * vols[j] for j in range(n)] for i in range(n)]
+
+    def evaluate(self, solution):
+        raw = solution.variables[:]
+        total = sum(raw)
+        n = self.nvars
+        w = [r / total for r in raw] if total > 1e-9 else [1/n] * n
+        variance = sum(w[i] * w[j] * self.cov[i][j] for i in range(n) for j in range(n))
+        ret = sum(w[i] * self.returns[i] for i in range(n))
+        hhi = sum(wi**2 for wi in w)
+        solution.objectives[:] = [variance, ret, hhi]
