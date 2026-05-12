@@ -224,7 +224,7 @@ class App(tk.Tk):
         help_menu = tk.Menu(menubar, tearoff=0)
         help_menu.add_command(label="Documentation",
                               command=lambda: webbrowser.open(
-                                  "https://platypus.readthedocs.io"))
+                                  "https://plotypus.readthedocs.io"))
         help_menu.add_separator()
         help_menu.add_command(label="About", command=self._show_about)
         menubar.add_cascade(label="Help", menu=help_menu)
@@ -237,8 +237,8 @@ class App(tk.Tk):
             f"Plotypus Explorer\n"
             f"Version {plotypus.__version__}\n\n"
             f"A GUI for multiobjective optimization\n"
-            f"using the Platypus framework.\n\n"
-            f"https://platypus.readthedocs.io"
+            f"built on the Plotypus framework.\n\n"
+            f"https://plotypus.readthedocs.io"
         )
 
     def _build_ui(self):
