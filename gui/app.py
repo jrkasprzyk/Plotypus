@@ -492,14 +492,18 @@ class App(tk.Tk):
         self._canvas_prog.draw()
 
     def _redraw_pareto(self, result):
-        ax = self._ax_pareto
-        ax.clear()
-
         if not result:
+            self._ax_pareto.clear()
             self._canvas_pareto.draw()
             return
 
         nobjs = len(result[0])
+        is_3d = getattr(self._ax_pareto, "name", None) == "3d"
+        if (nobjs >= 3) != is_3d:
+            self._reset_pareto_axes(nobjs)
+
+        ax = self._ax_pareto
+        ax.clear()
         color = "#2577c8"
 
         if nobjs >= 3:
