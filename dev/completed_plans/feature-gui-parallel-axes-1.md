@@ -120,12 +120,12 @@ The Plotypus Explorer (`gui/app.py`) currently renders results in Cartesian coor
 - **RISK-002**: Switching `_ax_pareto` between 3D and 2D projections requires `_reset_pareto_axes`; if the user toggles rapidly during a live update, a transient `AttributeError` on `set_zlabel` could occur. Mitigation: TASK-021 always re-creates a plain 2D axis when entering Parallel view.
 - **RISK-003**: `parasolpy.parallel_plot_hp` signature assumes `obj_directions` of equal length to `obj_names`; the export handler currently passes all `"minimize"`. Plotypus benchmarks are minimization-only, so this is consistent — but if a future user passes maximization problems through this GUI, results will look inverted. Flag in docstring of `_open_in_hiplot`.
 - **ASSUMPTION-001**: All Plotypus benchmark problems exposed in the GUI are minimization problems (consistent with current `PROBLEMS` registry).
-- **ASSUMPTION-002**: `parasolpy` will remain available as an editable install at `C:\github\parasolpy` on the developer's machine for manual TEST-006; users without it should fall back to the disabled-button path (TEST-005).
+- **ASSUMPTION-002**: For manual TEST-006, `parasolpy` should be available in the active Python environment via a standard install or editable install; users without it should fall back to the disabled-button path (TEST-005).
 
 ## 8. Related Specifications / Further Reading
 
-- parasolpy `parallel_plot_hp` — `C:\github\parasolpy\parasolpy\tradeoff.py` (lines 92–277).
-- parasolpy Dash variant — `C:\github\parasolpy\parasolpy\dash_tools.py`.
+- parasolpy `parallel_plot_hp` — `parasolpy/tradeoff.py` (module source; inspect the installed package or repository checkout for the current implementation).
+- parasolpy Dash variant — `parasolpy/dash_tools.py`.
 - HiPlot documentation — https://facebookresearch.github.io/hiplot/
 - Matplotlib parallel coordinates reference — https://matplotlib.org/stable/gallery/specialty_plots/parallel_coordinates.html
 - Existing GUI source — `gui/app.py`.
