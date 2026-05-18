@@ -2,6 +2,7 @@
 """Plotypus Explorer — GUI for multiobjective optimization."""
 
 import math
+import pathlib
 import queue
 import statistics
 import tempfile
@@ -761,7 +762,7 @@ class App(tk.Tk):
             tmp = tempfile.NamedTemporaryFile(suffix=".html", delete=False)
             tmp.close()
             exp.to_html(tmp.name)
-            webbrowser.open(f"file:///{tmp.name}")
+            webbrowser.open(pathlib.Path(tmp.name).resolve().as_uri())
         except Exception as e:
             messagebox.showerror("HiPlot export failed", str(e))
 
