@@ -4,13 +4,13 @@ version: 1.0
 date_created: 2026-05-17
 last_updated: 2026-05-17
 owner: Joseph Kasprzyk
-status: 'Planned'
+status: 'Completed'
 tags: [feature, gui, visualization]
 ---
 
 # Introduction
 
-![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+![Status: Completed](https://img.shields.io/badge/status-Completed-green)
 
 The Plotypus Explorer (`gui/app.py`) currently renders results in Cartesian coordinates: a 2D/3D scatter for the Pareto Front tab and a 2D line plot for the Progress tab. This plan adds a per-tab "Plot view" toggle that swaps the Cartesian view with a Matplotlib-native parallel-axes (parallel-coordinates) view. Parallel coordinates scale to arbitrary objective counts (>3) where 3D scatter degrades, and they make tradeoff inspection across many objectives possible. A secondary "Open in HiPlot…" action invokes `parasolpy.parallel_plot_hp` to render a richer interactive HTML view in the user's browser.
 
@@ -102,7 +102,7 @@ The Plotypus Explorer (`gui/app.py`) currently renders results in Cartesian coor
 ## 5. Files
 
 - **FILE-001**: `gui/app.py` — primary changes: view-mode state (Phase 1), parallel-axes renderer (Phase 2), HiPlot export button + handler (Phase 3).
-- **FILE-002**: `plan/feature-gui-parallel-axes-1.md` — this plan.
+- **FILE-002**: `dev/completed_plans/feature-gui-parallel-axes-1.md` — this plan.
 
 ## 6. Testing
 
