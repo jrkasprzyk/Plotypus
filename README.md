@@ -4,20 +4,15 @@ Fork of [Platypus](https://github.com/Project-Platypus/Platypus) with a focus on
 
 ### What is Plotypus?
 
-Plotypus inherits rich evolutionary computing infrastructure from Platypus, which is a framework for evolutionary computing in Python with a focus on
-multiobjective evolutionary algorithms (MOEAs).
+Plotypus inherits rich evolutionary computing infrastructure from Platypus, which is a framework for evolutionary computing in Python with a focus on multiobjective evolutionary algorithms (MOEAs).
 
 ### What's different from Platypus?
 
 Plotypus is an experimental repo that adds functionality to the original Platypus including:
 
-- **Interactive GUI** — Plotypus Explorer lets you pick an algorithm and test problem,
-  set parameters, and watch the Pareto front evolve live while the optimization runs.
-  No coding required for standard experiments.
-- **Expanded problem library** — the ZDT, WFG, UF, and CF problem families are
-  included and accessible directly from the package alongside the existing DTLZ suite.
-- **Human-in-the-loop example** — `examples/madlibs_moea.py` demonstrates using an
-  MOEA with a human as the evaluator, as a simple proof-of-concept.
+- **Interactive GUI** — Plotypus Explorer lets you pick an algorithm and test problem, set parameters, and watch the Pareto front evolve live while the optimization runs.
+- **Expanded problem library** — the ZDT, WFG, UF, and CF problem families are included and accessible directly from the package alongside the existing DTLZ suite.
+- **Human-in-the-loop example** — `examples/madlibs_moea.py` demonstrates using an MOEA with a human as the evaluator, as a simple proof-of-concept.
 
 ### Example
 
@@ -47,8 +42,7 @@ Requires `matplotlib` and `tkinter` (tkinter ships with most Python distribution
 
 ### Installation
 
-To install the latest development version of Plotypus, first install
-[Poetry](https://python-poetry.org/docs/#installation) if not already installed:
+To install the latest development version of Plotypus, first install [Poetry](https://python-poetry.org/docs/#installation) if not already installed:
 
 ```
 curl -sSL https://install.python-poetry.org | python3 -
