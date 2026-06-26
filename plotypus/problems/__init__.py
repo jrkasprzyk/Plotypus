@@ -18,6 +18,10 @@
 # along with plotypus.  If not, see <http://www.gnu.org/licenses/>.
 
 from .dtlz import DTLZ1, DTLZ2, DTLZ3, DTLZ4, DTLZ7
+from .eq_dltz import (Eq1DTLZ1, Eq1DTLZ2, Eq1DTLZ3, Eq1DTLZ4,
+                      Eq1IDTLZ1, Eq1IDTLZ2,
+                      Eq2DTLZ1, Eq2DTLZ2, Eq2DTLZ3, Eq2DTLZ4,
+                      Eq2IDTLZ1, Eq2IDTLZ2)
 from .wfg import WFG, WFG1, WFG2, WFG3, WFG4, WFG5, WFG6, WFG7, WFG8, WFG9
 from .zdt import ZDT, ZDT1, ZDT2, ZDT3, ZDT4, ZDT5, ZDT6
 from .uf import (UF1, UF2, UF3, UF4, UF5, UF6, UF7, UF8, UF9, UF10,
@@ -28,6 +32,8 @@ from .combinatorial import Knapsack, TSP, PortfolioOptimization
 
 __all__ = [
     "DTLZ1", "DTLZ2", "DTLZ3", "DTLZ4", "DTLZ7",
+    "Eq1DTLZ1", "Eq1DTLZ2", "Eq1DTLZ3", "Eq1DTLZ4", "Eq1IDTLZ1", "Eq1IDTLZ2",
+    "Eq2DTLZ1", "Eq2DTLZ2", "Eq2DTLZ3", "Eq2DTLZ4", "Eq2IDTLZ1", "Eq2IDTLZ2",
     "WFG", "WFG1", "WFG2", "WFG3", "WFG4", "WFG5", "WFG6", "WFG7", "WFG8",
     "WFG9",
     "ZDT", "ZDT1", "ZDT2", "ZDT3", "ZDT4", "ZDT5", "ZDT6",

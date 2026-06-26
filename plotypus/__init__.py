@@ -64,6 +64,10 @@ from .problems import (CF1, CF2, CF3, CF4, CF5, CF6, CF7, CF8, CF9, CF10,
                        UF5, UF6, UF7, UF8, UF9, UF10, UF11, UF12, UF13, WFG,
                        WFG1, WFG2, WFG3, WFG4, WFG5, WFG6, WFG7, WFG8, WFG9,
                        ZDT, ZDT1, ZDT2, ZDT3, ZDT4, ZDT5, ZDT6,
+                       Eq1DTLZ1, Eq1DTLZ2, Eq1DTLZ3, Eq1DTLZ4,
+                       Eq1IDTLZ1, Eq1IDTLZ2,
+                       Eq2DTLZ1, Eq2DTLZ2, Eq2DTLZ3, Eq2DTLZ4,
+                       Eq2IDTLZ1, Eq2IDTLZ2,
                        Schaffer, Belegundu, Knapsack, TSP, PortfolioOptimization)
 from .types import Binary, Integer, Permutation, Real, Subset, Type
 from .weights import chebyshev, normal_boundary_weights, pbi, random_weights

@@ -11,7 +11,7 @@ Plotypus inherits rich evolutionary computing infrastructure from Platypus, whic
 Plotypus is an experimental repo that adds functionality to the original Platypus including:
 
 - **Interactive GUI** — Select an algorithm and test problem, set parameters, and visualize the Pareto front evolve.
-- **Expanded problem library** — We refactored some of the examples within Platypus (the ZDT, WFG, UF, and CF problem families) to be accessible directly from the package alongside the existing DTLZ suite.
+- **Expanded problem library** — We refactored some of the examples within Platypus (the ZDT, WFG, UF, and CF problem families) to be accessible directly from the package alongside the existing DTLZ suite. We also added new families not in Platypus, such as the equality-constrained DTLZ benchmark (`Eq1DTLZ1`–`Eq2IDTLZ2`, Cuate et al. 2020).
 - **Human-in-the-loop example** — `examples/madlibs_moea.py` is a simple proof-of-concept where a human is asked to evaluate the quality of mad-libs, and the MOEA uses this as an objective function.
 
 ### Installation
