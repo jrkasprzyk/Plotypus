@@ -1,0 +1,12 @@
+{
+  "ignorePatterns": [
+    {
+      "_comment": "Local dev server URLs (e.g. docs live-reload) are never reachable in CI.",
+      "pattern": "^https?://(127\\.0\\.0\\.1|localhost)(:[0-9]+)?(/.*)?$"
+    },
+    {
+      "_comment": "Archived plan reference; this matplotlib gallery page was removed upstream (404).",
+      "pattern": "^https://matplotlib\\.org/stable/gallery/specialty_plots/parallel_coordinates\\.html$"
+    }
+  ]
+}
