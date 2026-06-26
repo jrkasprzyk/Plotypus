@@ -1,7 +1,7 @@
-plotypus.experimenter module
+plotypus.problems.wfg module
 ============================
 
-.. automodule:: plotypus.experimenter
+.. automodule:: plotypus.problems.wfg
    :members:
    :undoc-members:
    :show-inheritance:

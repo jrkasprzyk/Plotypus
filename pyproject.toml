@@ -60,6 +60,8 @@ exclude = [
   ".git",
   "__pycache__",
   "build",
+  "examples",  # standalone scripts, not shipped library code
+  "gui",       # imports follow matplotlib backend selection (E402)
 ]
 extend-ignore = [
   "E302",  # Expected 2 blank lines, found N

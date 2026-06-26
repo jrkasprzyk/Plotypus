@@ -1,0 +1,6 @@
+# Normalize line endings: store text as LF in the repo and check out LF on
+# all platforms. Prevents CRLF/LF churn from Windows checkouts.
+* text=auto eol=lf
+
+# Binary files: never modify line endings.
+*.png binary

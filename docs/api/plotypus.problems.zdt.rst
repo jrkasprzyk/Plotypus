@@ -1,7 +1,7 @@
-plotypus.experimenter module
+plotypus.problems.zdt module
 ============================
 
-.. automodule:: plotypus.experimenter
+.. automodule:: plotypus.problems.zdt
    :members:
    :undoc-members:
    :show-inheritance:

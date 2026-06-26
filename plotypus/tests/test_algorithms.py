@@ -63,19 +63,19 @@ def create_instances():
 
                 yield pytest.param(algorithm(p, **kwargs), id=id)
 
-@pytest.mark.parametrize("algorithm", create_instances())
+@pytest.mark.parametrize("algorithm", list(create_instances()))
 def test_pickle(algorithm):
     s = pickle.dumps(algorithm)
     copy = pickle.loads(s)
     similar(algorithm, copy)
 
-@pytest.mark.parametrize("algorithm", create_instances())
+@pytest.mark.parametrize("algorithm", list(create_instances()))
 def test_jsonpickle(algorithm):
     s = jsonpickle.dumps(algorithm)
     copy = jsonpickle.loads(s)
     similar(algorithm, copy)
 
-@pytest.mark.parametrize("algorithm", create_instances())
+@pytest.mark.parametrize("algorithm", list(create_instances()))
 def test_run(algorithm):
     assert algorithm.nfe == 0
     algorithm.run(500)
