@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
@@ -55,10 +55,10 @@ jobs:
       run-examples: ${{ steps.filter.outputs.code }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Detect relevant changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         id: filter
         with:
           filters: |
@@ -79,7 +79,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get minimum Python version
         run: |
@@ -87,7 +87,7 @@ jobs:
           echo "PYTHON_VERSION=${PYTHON_VERSION}" >> $GITHUB_ENV
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
@@ -117,7 +117,7 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get minimum Python version
         run: |
@@ -125,7 +125,7 @@ jobs:
           echo "PYTHON_VERSION=${PYTHON_VERSION}" >> $GITHUB_ENV
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
