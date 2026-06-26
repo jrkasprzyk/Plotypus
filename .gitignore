@@ -1,3 +1,9 @@
+# Private directories
+#   These directories are used to store private data, such as credentials, local state, and
+#  settings.  They are not required for the project to function, and should not be checked
+# into version control.
+.private/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
