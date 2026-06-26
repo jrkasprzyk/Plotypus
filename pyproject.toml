@@ -20,7 +20,7 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
 ]
-packages = [{include = "plotypus"}]
+packages = [{include = "plotypus"}, {include = "gui"}]
 
 [tool.poetry.urls]
 Homepage = "https://github.com/jrkasprzyk/Plotypus"
@@ -49,6 +49,7 @@ sphinx-rtd-theme = "*"
 
 [tool.poetry.scripts]
 plotypus = "plotypus.__main__:main"
+plotypus-gui = "gui.app:main"
 
 [tool.pytest.ini_options]
 addopts = "-rA -Werror"

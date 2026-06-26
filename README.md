@@ -35,7 +35,7 @@ algorithm.run(10000)
 ### Running the GUI
 
 ```
-python gui/app.py
+poetry run plotypus-gui
 ```
 
 Requires `matplotlib` and `tkinter` (tkinter ships with most Python distributions).
