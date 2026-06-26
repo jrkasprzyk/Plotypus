@@ -21,9 +21,9 @@ All GUI code lives in a single 777-line `gui/app.py`. It mixes five concerns: sm
 ### Execution Plan
 
 #### Phase 1: Extract leaf modules (no `App` changes)
-- [ ] Step 1.1: Create `gui/tooltip.py` containing the `Tooltip` class verbatim (lines 48–70).
-- [ ] Step 1.2: Create `gui/registries.py` containing `PROBLEMS`, `ALGORITHMS`, `make_problem`, `_nsgaiii_divisions`, `make_algorithm` (lines 18–26 imports + 77–174). Keep `make_algorithm` and `_nsgaiii_divisions` together since the latter is private to it.
-- [ ] Step 1.3: Create `gui/plotting.py` containing:
+- [x] Step 1.1: Create `gui/tooltip.py` containing the `Tooltip` class verbatim (lines 48–70).
+- [x] Step 1.2: Create `gui/registries.py` containing `PROBLEMS`, `ALGORITHMS`, `make_problem`, `_nsgaiii_divisions`, `make_algorithm` (lines 18–26 imports + 77–174). Keep `make_algorithm` and `_nsgaiii_divisions` together since the latter is private to it.
+- [x] Step 1.3: Create `gui/plotting.py` containing:
   - `_SUBSCRIPT_DIGITS` and `subscript()` (renamed from `_subscript`, made public)
   - `draw_parallel_axes(ax, rows, axis_labels, *, …)` (from `_draw_parallel_axes`, lines 690–736) — already pure
   - `draw_placeholder(ax)` — one-axes version of the loop in `_draw_placeholders`
@@ -31,31 +31,31 @@ All GUI code lives in a single 777-line `gui/app.py`. It mixes five concerns: sm
   - `draw_pareto_parallel(ax, result, current_nobjs)` — extracted from 612–639
   - `draw_progress_cartesian(ax, nfe_hist, size_hist)` — extracted from 649–660
   - `draw_progress_parallel(ax, last_result, nfe_hist)` — extracted from 662–686
-- [ ] Step 1.4: Create `gui/hiplot_export.py` containing `hiplot_available()` (from `_hiplot_available`, lines 37–43) and `open_in_hiplot(last_result)` — takes the result list, raises on failure; caller shows the messagebox. Keeps lazy imports inside the function.
-- [ ] Step 1.5: Create `gui/worker.py` containing the `Worker` class (lines 179–214), importing `make_algorithm` from `gui.registries`.
-- [ ] Verify after each step: `python -c "import gui.tooltip, gui.registries, gui.plotting, gui.hiplot_export, gui.worker"` succeeds. `python -c "import gui.app"` still works (old file untouched).
+- [x] Step 1.4: Create `gui/hiplot_export.py` containing `hiplot_available()` (from `_hiplot_available`, lines 37–43) and `open_in_hiplot(last_result)` — takes the result list, raises on failure; caller shows the messagebox. Keeps lazy imports inside the function.
+- [x] Step 1.5: Create `gui/worker.py` containing the `Worker` class (lines 179–214), importing `make_algorithm` from `gui.registries`.
+- [x] Verify after each step: `python -c "import gui.tooltip, gui.registries, gui.plotting, gui.hiplot_export, gui.worker"` succeeds. `python -c "import gui.app"` still works (old file untouched).
 
 #### Phase 2: Rewire `gui/app.py`
-- [ ] Step 2.1: Replace the in-file definitions in `app.py` with imports from the new modules:
+- [x] Step 2.1: Replace the in-file definitions in `app.py` with imports from the new modules:
   - `from gui.tooltip import Tooltip`
   - `from gui.registries import PROBLEMS, ALGORITHMS, make_problem`
   - `from gui.worker import Worker`
   - `from gui import plotting`
   - `from gui.hiplot_export import hiplot_available, open_in_hiplot`
-- [ ] Step 2.2: Drop now-unused imports from `app.py` (`math`, `statistics`, `tempfile`, `threading`, the plotypus problem/algo names). Keep `queue`, `tkinter`, `webbrowser`, `messagebox`, `matplotlib`, `Figure`, `FigureCanvasTkAgg`, `NavigationToolbar2Tk`.
-- [ ] Step 2.3: Replace the bodies of `_draw_placeholders`, `_redraw_pareto_cartesian`, `_redraw_pareto_parallel`, `_redraw_progress_cartesian`, `_redraw_progress_parallel`, and `_draw_parallel_axes` with thin wrappers that call into `plotting.*`, handle the axes-3D-reset decision, and call `self._canvas_*.draw()`. The 3D-vs-2D axes swap (`_reset_pareto_axes`) stays on `App` because it touches Tk-managed figure state.
-- [ ] Step 2.4: Replace `_open_in_hiplot` body with a `try/except` that calls `open_in_hiplot(self._last_result)` and shows the messagebox on error / empty result.
-- [ ] Step 2.5: Replace `_hiplot_available()` call site with `hiplot_available()`.
-- [ ] Verify: `python -m gui.app` launches, default Cartesian run on DTLZ2 (2 obj and 3 obj) shows expected plots, view toggle to "Parallel axes" works on both tabs, Stop button works, HiPlot button state matches `hiplot_available()`.
+- [x] Step 2.2: Drop now-unused imports from `app.py` (`math`, `statistics`, `tempfile`, `threading`, the plotypus problem/algo names). Keep `queue`, `tkinter`, `webbrowser`, `messagebox`, `matplotlib`, `Figure`, `FigureCanvasTkAgg`, `NavigationToolbar2Tk`.
+- [x] Step 2.3: Replace the bodies of `_draw_placeholders`, `_redraw_pareto_cartesian`, `_redraw_pareto_parallel`, `_redraw_progress_cartesian`, `_redraw_progress_parallel`, and `_draw_parallel_axes` with thin wrappers that call into `plotting.*`, handle the axes-3D-reset decision, and call `self._canvas_*.draw()`. The 3D-vs-2D axes swap (`_reset_pareto_axes`) stays on `App` because it touches Tk-managed figure state.
+- [x] Step 2.4: Replace `_open_in_hiplot` body with a `try/except` that calls `open_in_hiplot(self._last_result)` and shows the messagebox on error / empty result.
+- [x] Step 2.5: Replace `_hiplot_available()` call site with `hiplot_available()`.
+- [x] Verify: `python -m gui.app` launches, default Cartesian run on DTLZ2 (2 obj and 3 obj) shows expected plots, view toggle to "Parallel axes" works on both tabs, Stop button works, HiPlot button state matches `hiplot_available()`.
 
 #### Phase 3: Optional tidy
-- [ ] Step 3.1: In `gui/__init__.py`, add `from gui.app import main` so `from gui import main` works. Skip if the team prefers `__init__.py` stay empty.
-- [ ] Step 3.2: Remove dead comments / section banners in `app.py` that no longer match the (now-shorter) content.
+- [x] Step 3.1: In `gui/__init__.py`, add `from gui.app import main` so `from gui import main` works. Skip if the team prefers `__init__.py` stay empty.
+- [x] Step 3.2: Remove dead comments / section banners in `app.py` that no longer match the (now-shorter) content.
 
 #### Phase 4: Validation
-- [ ] `python -c "import gui.app"` — smoke import.
-- [ ] `python -m gui.app` — launch GUI, run DTLZ2 (2 obj), DTLZ2 (3 obj), ZDT3, CF8 to spot-check Pareto/Progress in both view modes, Stop mid-run, and HiPlot export (if `parasolpy`/`hiplot` installed).
-- [ ] `git diff --stat` — confirm `app.py` shrank substantially and new files exist.
+- [x] `python -c "import gui.app"` — smoke import.
+- [x] `python -m gui.app` — launch GUI, run DTLZ2 (2 obj), DTLZ2 (3 obj), ZDT3, CF8 to spot-check Pareto/Progress in both view modes, Stop mid-run, and HiPlot export (if `parasolpy`/`hiplot` installed).
+- [x] `git diff --stat` — confirm `app.py` shrank substantially and new files exist.
 
 ### Rollback Plan
 If something breaks during Phase 2:
