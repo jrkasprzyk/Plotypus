@@ -22,11 +22,17 @@ import pytest
 
 from ..core import Problem
 from ..operators import RandomGenerator
-from ..problems import WFG, ZDT
+from ..problems import WFG, ZDT, Knapsack, TSP, PortfolioOptimization
+
+# Problems that cannot be instantiated without arguments: WFG/ZDT are abstract
+# base classes, and the combinatorial problems require domain data (item
+# weights, city coordinates, asset returns) to construct.
+_NOT_AUTO_CONSTRUCTIBLE = (Problem, WFG, ZDT, Knapsack, TSP,
+                           PortfolioOptimization)
 
 
 def problem_filter(x):
-    return inspect.isclass(x) and issubclass(x, Problem) and x not in (Problem, WFG, ZDT)
+    return inspect.isclass(x) and issubclass(x, Problem) and x not in _NOT_AUTO_CONSTRUCTIBLE
 
 problem_module = importlib.import_module("plotypus.problems")
 problems = [v for _, v in inspect.getmembers(problem_module, problem_filter)]
