@@ -18,7 +18,7 @@
 # along with plotypus.  If not, see <http://www.gnu.org/licenses/>.
 
 from .dtlz import DTLZ1, DTLZ2, DTLZ3, DTLZ4, DTLZ7
-from .eq_dltz import (Eq1DTLZ1, Eq1DTLZ2, Eq1DTLZ3, Eq1DTLZ4,
+from .eq_dtlz import (Eq1DTLZ1, Eq1DTLZ2, Eq1DTLZ3, Eq1DTLZ4,
                       Eq1IDTLZ1, Eq1IDTLZ2,
                       Eq2DTLZ1, Eq2DTLZ2, Eq2DTLZ3, Eq2DTLZ4,
                       Eq2IDTLZ1, Eq2IDTLZ2)

@@ -11,7 +11,7 @@ Submodules
    plotypus.problems.cf
    plotypus.problems.combinatorial
    plotypus.problems.dtlz
-   plotypus.problems.eq_dltz
+   plotypus.problems.eq_dtlz
    plotypus.problems.simple
    plotypus.problems.uf
    plotypus.problems.wfg
