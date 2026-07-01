@@ -1,5 +1,7 @@
 ﻿from plotypus import DTLZ2, NSGAII, ProcessPoolEvaluator
 
+from _ci import scaled
+
 
 # simulate an computationally expensive problem
 class DTLZ2_Slow(DTLZ2):
@@ -14,7 +16,7 @@ if __name__ == "__main__":
     # supply an evaluator to run in parallel
     with ProcessPoolEvaluator(4) as evaluator:
         algorithm = NSGAII(problem, evaluator=evaluator)
-        algorithm.run(10000)
+        algorithm.run(scaled(10000))
 
     # display the results
     for solution in algorithm.result:

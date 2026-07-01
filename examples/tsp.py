@@ -1,6 +1,8 @@
 from plotypus import GeneticAlgorithm, nondominated, unique
 from plotypus.problems import TSP
 
+from _ci import scaled
+
 # PR76 instance — optimal tour length is 108159
 cities = [(3600, 2300), (3100, 3300), (4700, 5750), (5400, 5750), (5608, 7103),
           (4493, 7102), (3600, 6950), (3100, 7250), (4700, 8450), (5400, 8450),
@@ -20,4 +22,4 @@ cities = [(3600, 2300), (3100, 3300), (4700, 5750), (5400, 5750), (5608, 7103),
           (200, 800)]
 
 algorithm = GeneticAlgorithm(TSP(cities))
-algorithm.run(100000, callback=lambda a: print(a.nfe, unique(nondominated(algorithm.result))[0].objectives[0]))
+algorithm.run(scaled(100000), callback=lambda a: print(a.nfe, unique(nondominated(algorithm.result))[0].objectives[0]))

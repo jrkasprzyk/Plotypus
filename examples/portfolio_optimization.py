@@ -1,6 +1,8 @@
 from plotypus import NSGAII, nondominated
 from plotypus.problems import PortfolioOptimization
 
+from _ci import scaled
+
 ASSETS  = ["Tech", "Health", "Energy", "Finance", "Consumer", "Utilities"]
 RETURNS = [0.15,   0.10,    0.08,     0.09,      0.07,       0.05]
 VOLS    = [0.25,   0.15,    0.20,     0.18,      0.12,       0.08]
@@ -15,7 +17,7 @@ CORR = [
 
 problem = PortfolioOptimization(ASSETS, RETURNS, VOLS, CORR)
 algorithm = NSGAII(problem, population_size=200)
-algorithm.run(100_000)
+algorithm.run(scaled(100_000))
 
 front = nondominated(algorithm.result)
 print(f"Pareto front: {len(front)} solutions\n")

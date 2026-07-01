@@ -11,13 +11,19 @@ users yet — free to change example NFE.
   `plotypus/`, `examples/`, lockfile/pyproject, or the workflow change.
 - `madlibs_moea.py` (interactive) and `parallel_mpi.py` excluded.
 - Runtime driver = per-example NFE/seed counts, run **serially**.
+- Option B applied to the 7 measured hot spots via `examples/_ci.py`
+  (`scaled(full, ci=500)`, gated on the `CI` env var). Cheap examples left
+  untouched so the doc-embedded ones stay free of CI plumbing.
 
-## Runtime hot spots (from grep of NFE/seed counts)
-- Most examples: `run(10000)`.
-- `experimenter.py`: `nfe=10000, seeds=10` x multiple algos/problems — biggest hog.
-- `experimenter_parallel.py`, `experimenter_plot.py`: `nfe=10000`.
-- `portfolio_optimization.py`: `run(100_000)`; `tsp.py`: `run(100000)`.
-- `parallel_multiprocess.py`: `run(10000)` + `sum(range(100000))` busywork.
+## Runtime hot spots (measured locally, full -> CI=true after gating)
+- `experimenter.py`: 70s -> 2.4s (`nfe=scaled(10000)`, `seeds=scaled(10, 2)`).
+- `portfolio_optimization.py`: 35s -> 3.0s.
+- `experimenter_plot.py`: 28s -> 7.9s; `experimenter_parallel.py`: 26s -> 3.5s.
+- `tsp.py`: 19s -> 2.3s; `particle_swarm.py`: 12s -> 2.5s
+  (`max_iterations = scaled(500, 5)` so OMOPSO's mutation schedule stays
+  consistent with the run length).
+- `parallel_multiprocess.py`: 10s -> 2.8s.
+- Remaining examples: `run(10000)` ≈ 3-5s each — left at full fidelity.
 
 ## Options (cheapest -> deepest)
 
@@ -37,8 +43,15 @@ clean.
 unconditionally. Simplest, but changes what humans see — decide per example.
 
 ## Recommendation
-Do **A** now. If still slow, layer **B** (`CI` is free). Reserve **C** for
-examples where big NFE isn't needed for the demo output.
+**B is done** for the hot spots (see above); they now account for ~25s instead
+of ~190s of script time. **A** (xargs -P 4) deliberately skipped for now: with
+the hogs gated, the job is dominated by setup + ~15 cheap examples (~1 min
+serial), and serial output keeps failure logs readable. Revisit A or C only if
+the job is still too slow in practice.
+
+Note: docs literalinclude the experimenter examples, so those three show the
+`from _ci import scaled` import. The other 6 doc-embedded examples are
+untouched.
 
 ## Validation
 Push a workflow/examples change so the gated `examples` job runs; confirm green

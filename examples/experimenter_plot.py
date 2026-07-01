@@ -4,6 +4,8 @@ from plotypus import (CMAES, DTLZ2, GDE3, IBEA, MOEAD, NSGAII, NSGAIII, OMOPSO,
                       SMPSO, SPEA2, EpsMOEA, ProcessPoolEvaluator, experiment,
                       normal_boundary_weights)
 
+from _ci import scaled
+
 if __name__ == '__main__':
     # setup the experiment
     problem = DTLZ2(3)
@@ -21,7 +23,7 @@ if __name__ == '__main__':
 
     # run the experiment using Python 3's concurrent futures for parallel evaluation
     with ProcessPoolEvaluator() as evaluator:
-        results = experiment(algorithms, problem, seeds=1, nfe=10000, evaluator=evaluator)
+        results = experiment(algorithms, problem, seeds=1, nfe=scaled(10000), evaluator=evaluator)
 
     # display the results
     fig = plt.figure()
